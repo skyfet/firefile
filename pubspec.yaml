@@ -1,7 +1,7 @@
 name: firefile
 description: The Firefile package makes it easy to control the display of the Firestore file download progress.
 version: 0.1.0
-homepage: https://github.com/skyfet
+homepage: https://github.com/skyfet/firefile
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
