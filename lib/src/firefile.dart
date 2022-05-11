@@ -12,13 +12,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'firefile_controller.dart';
 
-/// `Firefile` uses `ListView.builder` to display a list of downloads.
-/// You can control all `ListView` parameters with `Firefile` arguments.
+/// Use [FirefileController] for file upload or other operations with files.
+///
+/// [Firefile] uses [ListView.builder] to display a list of downloads.
+/// You can control all [ListView] parameters with [Firefile] parameters.
 ///
 /// #### NOTES:
-/// - use `controller` to provide `FirefileController`;
-/// - use `tileBuilder` instead of `ListView.itemBuilder`;
-/// - use `scrollController` instead of `ListView.controller`.
+/// - Use [tileBuilder] instead of `ListView.itemBuilder`.
+/// - Use [scrollController] instead of `ListView.controller`.
+/// - [controller] used to provide [FirefileController].
 class Firefile extends StatelessWidget {
   const Firefile({
     required this.controller,
@@ -45,7 +47,10 @@ class Firefile extends StatelessWidget {
   }) : super(key: key);
 
   final FirefileController controller;
+
+  /// Builds a task list tile widget by using [FirefileTask].
   final Widget Function(FirefileTask task) tileBuilder;
+
   final Axis scrollDirection;
   final bool reverse;
   final ScrollController? scrollController;
