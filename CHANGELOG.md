@@ -1,3 +1,7 @@
-## 0.1.0
+## 0.2.0
+- `Web` support added.
+- Removed unneccessary `platform` package dependency. 
+- Updating `example/` and documentation.
 
-Basic `firefile` features.
+## 0.1.0
+- Basic `firefile` features.

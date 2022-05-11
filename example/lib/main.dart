@@ -16,11 +16,11 @@ void main() {
 
   Firebase.initializeApp(options: options);
 
-  runApp(const FirefileExampleApp());
+  runApp(const ExampleApp());
 }
 
-class FirefileExampleApp extends StatelessWidget {
-  const FirefileExampleApp({Key? key}) : super(key: key);
+class ExampleApp extends StatelessWidget {
+  const ExampleApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +29,19 @@ class FirefileExampleApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const FirefileExample(),
+      home: const Example(),
     );
   }
 }
 
-class FirefileExample extends StatefulWidget {
-  const FirefileExample({Key? key}) : super(key: key);
+class Example extends StatefulWidget {
+  const Example({Key? key}) : super(key: key);
 
   @override
-  State<FirefileExample> createState() => _FirefileExampleState();
+  State<Example> createState() => _ExampleState();
 }
 
-class _FirefileExampleState extends State<FirefileExample> {
+class _ExampleState extends State<Example> {
   late FirefileController controller;
 
   @override
@@ -65,47 +65,16 @@ class _FirefileExampleState extends State<FirefileExample> {
             children: [
               ElevatedButton.icon(
                 onPressed: _onPickFile,
-                icon: const Icon(Icons.file_download),
+                icon: const Icon(Icons.folder),
                 label: const Text('Choose file'),
               ),
               Expanded(
                 child: Firefile(
                   controller: controller,
-                  tileBuilder: (task) {
-                    Widget? trailing;
-                    switch (task.state) {
-                      case TaskState.running:
-                        if (task.progress > 0) {
-                          trailing = IconButton(
-                            onPressed: () => controller.cancelTask(task, removeOnCancel: true),
-                            icon: Stack(
-                              fit: StackFit.passthrough,
-                              alignment: Alignment.center,
-                              children: [
-                                CircularProgressIndicator(
-                                  value: task.progress,
-                                  color: Colors.red,
-                                ),
-                                Text('${(task.progress * 100).round()}%'),
-                              ],
-                            ),
-                          );
-                        } else {
-                          trailing = const CircularProgressIndicator();
-                        }
-                        break;
-                      case TaskState.success:
-                        trailing = const Text('Success 🎉');
-                        break;
-                      default:
-                        break;
-                    }
-
-                    return ListTile(
-                      title: Text(task.fileName),
-                      trailing: trailing,
-                    );
-                  },
+                  tileBuilder: (task) => ListTile(
+                    title: Text(task.fileName),
+                    trailing: _buildTrailing(task),
+                  ),
                 ),
               ),
             ],
@@ -113,6 +82,32 @@ class _FirefileExampleState extends State<FirefileExample> {
         ),
       ),
     );
+  }
+
+  Widget? _buildTrailing(FirefileTask task) {
+    switch (task.state) {
+      case TaskState.running:
+        return IconButton(
+          onPressed: () => controller.cancelTask(task, removeOnCancel: true),
+          icon: Stack(
+            fit: StackFit.passthrough,
+            alignment: Alignment.center,
+            children: [
+              CircularProgressIndicator(
+                value: task.progress,
+                color: Colors.red,
+              ),
+              Text('${(task.progress * 100).round()}%'),
+            ],
+          ),
+        );
+
+      case TaskState.success:
+        return const Text('Success 🎉');
+
+      default:
+        return null;
+    }
   }
 
   void _onPickFile() async {
