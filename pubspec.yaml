@@ -22,15 +22,10 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.1.10
 
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: ru.skyfet.firefile
-        pluginClass: FlutterFirefilePlugin
-      ios:
-        pluginClass: FlutterFirefilePlugin
-      macos:
-        pluginClass: FlutterFirefilePlugin
-      web:
-        default_package: firefile_web
+# This package supports all platforms listed below.
+platforms:
+  android:
+  ios:
+  macos:
+  web:
+  windows:
