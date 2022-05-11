@@ -2,8 +2,8 @@
 
 TODO: List what your package can do. Maybe include images, gifs, or videos.
  -->
-## Features
-The Firefile package makes it easy to control the display of the Firestore file download progress.
+## Firefile
+This package makes it easy to control the display of the Firestore file download progress.
 
 ## Getting started
 Make sure that all Firebase requirements are installed. 
