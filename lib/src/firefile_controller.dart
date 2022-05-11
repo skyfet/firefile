@@ -1,29 +1,33 @@
 part of 'firefile.dart';
 
-/// Use `uploadFile` method for uploading new files with `firefile`.
+/// Use [uploadFile] method for uploading files.
 ///
-/// `tasks` - list of all tasks.
+/// [tasks] - list of all tasks.
 ///
-/// `allSuccess` - checks if all the tasks were completed successfully.
+/// [allSuccess] - checks if all the tasks were completed successfully.
 ///
-/// `allDone` - checks if all the tasks were executed with or without errors.
+/// [allDone] - checks if all the tasks were executed with or without errors.
 ///
-/// #### NOTE: Do not use the `UploadTask.cancel()` method directly to cancel the task.
-/// Instead, use the `cancelTask` method of `FirefileController`.
-/// For other cases, you can refer to the available `UploadTask` methods.
+/// ### Do not use the `UploadTask.cancel()` method directly to cancel the task.
+/// * #### Instead, use the [cancelTask] method.
+/// * #### For other cases, you can refer to the available `UploadTask` methods.
 class FirefileController {
   FirefileController({this.removeOnCancel = false})
       : tasks = [],
         _bloc = FirefileBloc();
 
   /// This flag affects whether the task will be removed
-  /// from the task list if the task is canceled by `cancelTask` method.
+  /// from the task list if the task is canceled by [cancelTask] method.
   final bool removeOnCancel;
 
   final List<FirefileTask> tasks;
 
   final FirefileBloc _bloc;
 
+  /// You can upload file using [File] or [Uint8List] byte array.
+  ///
+  /// 1. If you upload file using [File], provide only [file], there are no more requirements.
+  /// 2. If you upload file using [Uint8List], specify [data] and [childPath] (which is used as the filename).
   UploadTask uploadFile({
     File? file,
     Uint8List? data,
@@ -33,7 +37,7 @@ class FirefileController {
   }) {
     assert(file != null || data != null, 'file OR data must be provided');
     assert(!(file != null && data != null), 'file OR data must be provided');
-    assert(data == null || childPath != null, 'then data is provided, provide the childPath');
+    assert(data == null || childPath != null, 'then data is provided, specify the childPath');
     var storageRef = FirebaseStorage.instance.ref(refPath);
 
     if (childPath != null) {
@@ -59,9 +63,9 @@ class FirefileController {
     return uploadTask;
   }
 
-  /// If `removeOnCancel` argument is provided,
-  /// `removeOnCancel` of `FirefileController` will be ignored for this task.
-  /// Else affects by `removeOnCancel` of `FirefileController`.
+  /// If [removeOnCancel] argument is provided,
+  /// [FirefileController.removeOnCancel] will be ignored for this task.
+  /// Else affects by [FirefileController.removeOnCancel].
   void cancelTask(FirefileTask task, {bool? removeOnCancel}) async {
     await task.uploadTask.cancel();
     if (removeOnCancel ?? this.removeOnCancel) {
