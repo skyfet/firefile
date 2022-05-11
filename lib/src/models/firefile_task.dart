@@ -1,5 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firefile/extensions/task_snapshot_extension.dart';
+import 'package:firefile/src/extensions/task_snapshot_extension.dart';
 
 class FirefileTask {
   FirefileTask.fromUploadTask({

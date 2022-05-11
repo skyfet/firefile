@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:firefile/models/firefile_task.dart';
+import 'package:firefile/src/models/firefile_task.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'firefile_event.dart';
