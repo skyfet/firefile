@@ -71,7 +71,9 @@ class FirefileController {
   void cancelTask(FirefileTask task, {bool? removeOnCancel}) async {
     await task.uploadTask.cancel();
     if (removeOnCancel ?? this.removeOnCancel) {
-      tasks.removeWhere((t) => t.uploadTask.hashCode == task.uploadTask.hashCode);
+      tasks.removeWhere(
+        (t) => t.uploadTask.snapshot.ref.fullPath == task.uploadTask.snapshot.ref.fullPath,
+      );
     }
 
     _bloc.add(FirefileEvent.updateTaskList(tasks));

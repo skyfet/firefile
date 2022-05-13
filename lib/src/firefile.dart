@@ -12,19 +12,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'firefile_controller.dart';
 
-/// Use [FirefileController] for file upload or other operations with files.
-///
-/// [Firefile] uses [ListView.builder] to display a list of downloads.
-/// You can control all [ListView] parameters with [Firefile] parameters.
-///
-/// #### NOTES:
-/// - Use [tileBuilder] instead of `ListView.itemBuilder`.
-/// - Use [scrollController] instead of `ListView.controller`.
-/// - [controller] used to provide [FirefileController].
 class Firefile extends StatelessWidget {
+  /// Use [FirefileController] for file upload or other operations with files.
+  ///
+  /// Use [placeholder] if you want to provide a placeholder widget when tasks
+  /// are empty.
+  ///
+  /// [Firefile] uses [ListView.builder] to display a list of downloads.
+  /// You can control all [ListView] parameters with [Firefile] parameters.
+  ///
+  /// #### NOTES:
+  /// - Use [tileBuilder] instead of `ListView.itemBuilder`.
+  /// - Use [scrollController] instead of `ListView.controller`.
+  /// - [controller] used to provide [FirefileController].
   const Firefile({
     required this.controller,
     required this.tileBuilder,
+    this.placeholder,
     this.scrollController,
     this.primary,
     this.physics,
@@ -50,6 +54,9 @@ class Firefile extends StatelessWidget {
 
   /// Builds a task list tile widget by using [FirefileTask].
   final Widget Function(FirefileTask task) tileBuilder;
+
+  /// Widget that will be rendered as a placeholder when tasks are empty.
+  final Widget? placeholder;
 
   final Axis scrollDirection;
   final bool reverse;
@@ -77,6 +84,7 @@ class Firefile extends StatelessWidget {
       child: FirefileBuilder(
         controller: controller,
         tileBuilder: tileBuilder,
+        placeholder: placeholder,
         scrollDirection: scrollDirection,
         reverse: reverse,
         scrollController: scrollController,

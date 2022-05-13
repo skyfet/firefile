@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirefileBuilder extends StatelessWidget {
   const FirefileBuilder({
-    Key? key,
+    required this.placeholder,
     required this.controller,
     required this.tileBuilder,
     required this.scrollDirection,
@@ -28,10 +28,15 @@ class FirefileBuilder extends StatelessWidget {
     required this.addSemanticIndexes,
     required this.itemExtent,
     required this.prototypeItem,
+    Key? key,
   }) : super(key: key);
 
+  //* Firefile
   final FirefileController controller;
   final Widget Function(FirefileTask task) tileBuilder;
+  final Widget? placeholder;
+
+  //* ListView.builder
   final Axis scrollDirection;
   final bool reverse;
   final ScrollController? scrollController;
@@ -62,6 +67,11 @@ class FirefileBuilder extends StatelessWidget {
         orElse: () => const SizedBox(),
         taskListUpdateSuccess: (state) {
           final tasks = state.tasks;
+
+          if (tasks.isEmpty && placeholder != null) {
+            return placeholder!;
+          }
+
           return ListView.builder(
             itemCount: tasks.length,
             itemBuilder: (context, index) {
