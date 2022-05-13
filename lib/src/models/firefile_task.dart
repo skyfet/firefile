@@ -10,11 +10,14 @@ class FirefileTask {
         state = TaskState.running {
     // Listening to events
     uploadTask.snapshotEvents.listen(
-      (TaskSnapshot taskSnapshot) {
-        state = taskSnapshot.state;
+      (TaskSnapshot taskSnapshot) async {
+        if (taskSnapshot.state == TaskState.success) {
+          downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+        }
         if (taskSnapshot.state == TaskState.running) {
           progress = taskSnapshot.progress;
         }
+        state = taskSnapshot.state;
         onUpdate(this);
       },
       onError: (_) {
@@ -29,7 +32,14 @@ class FirefileTask {
   final String fileName;
 
   double progress;
+
+  /// Do not access to `UploadTask.state`.
+  /// Prefer using this [state].
   TaskState state;
+
+  /// Full file download url.
+  /// ### Do not access this variable until the state of the task has been successfully.
+  late String downloadUrl;
 
   @override
   String toString() => '<$runtimeType ($fileName, $state)>';
