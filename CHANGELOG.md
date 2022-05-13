@@ -1,3 +1,7 @@
+## 0.3.2
+- BUGFIX: The placeholder was not initialized correctly.
+- BUGFIX: The states were not updated correctly when the task was deleted.
+
 ## 0.3.1
 - FEATURE: Now, you can now specify the widget to be used as a placeholder when the task list is empty, using the `placeholder` argument of the `Firefile` class.
 - BUGFIX: In some another cases, the task was not removed again.

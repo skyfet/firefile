@@ -24,6 +24,8 @@ class FirefileController {
 
   final FirefileBloc _bloc;
 
+  int eventId = 0;
+
   /// You can upload file using [File] or [Uint8List] byte array.
   /// ## If you upload file using [File]:
   /// - ### provide only [file] argument.
@@ -55,12 +57,12 @@ class FirefileController {
 
     final task = FirefileTask.fromUploadTask(
       uploadTask: uploadTask,
-      onUpdate: (task) => _bloc.add(FirefileEvent.updateTask(task)),
+      onUpdate: (task) => _bloc.add(FirefileEvent.updateTask(task, eventId: ++eventId)),
     );
 
     tasks.add(task);
 
-    _bloc.add(FirefileEvent.updateTaskList(tasks));
+    _bloc.add(FirefileEvent.updateTaskList(tasks, eventId: ++eventId));
 
     return uploadTask;
   }
@@ -69,14 +71,14 @@ class FirefileController {
   /// [FirefileController.removeOnCancel] will be ignored for this task.
   /// Else affects by [FirefileController.removeOnCancel].
   void cancelTask(FirefileTask task, {bool? removeOnCancel}) async {
-    await task.uploadTask.cancel();
+    task.uploadTask.cancel().ignore();
     if (removeOnCancel ?? this.removeOnCancel) {
       tasks.removeWhere(
         (t) => t.uploadTask.snapshot.ref.fullPath == task.uploadTask.snapshot.ref.fullPath,
       );
     }
 
-    _bloc.add(FirefileEvent.updateTaskList(tasks));
+    _bloc.add(FirefileEvent.updateTaskList(tasks, eventId: ++eventId));
   }
 
   bool get allSuccess => tasks.every((task) => task.state == TaskState.success);

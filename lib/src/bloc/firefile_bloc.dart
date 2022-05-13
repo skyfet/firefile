@@ -13,9 +13,9 @@ class FirefileBloc extends Bloc<FirefileEvent, FirefileState> {
   }
 
   void _updateTask(_UpdateTask event, Emitter<FirefileState> emit) {
-    emit(FirefileState.taskUpdateSuccess(event.task, event.task.hashCode));
+    emit(FirefileState.taskUpdateSuccess(event.task, event.eventId));
   }
 
   void _updateTaskList(_UpdateTaskList event, Emitter<FirefileState> emit) =>
-      emit(FirefileState.taskListUpdateSuccess(event.taskList));
+      emit(FirefileState.taskListUpdateSuccess(event.taskList, event.eventId));
 }

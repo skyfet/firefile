@@ -64,7 +64,7 @@ class FirefileBuilder extends StatelessWidget {
         orElse: () => false,
       ),
       builder: (context, state) => state.maybeMap(
-        orElse: () => const SizedBox(),
+        orElse: () => placeholder ?? const SizedBox(),
         taskListUpdateSuccess: (state) {
           final tasks = state.tasks;
 

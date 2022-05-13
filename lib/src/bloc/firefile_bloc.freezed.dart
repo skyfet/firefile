@@ -16,22 +16,24 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FirefileEvent {
+  int get eventId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FirefileTask task) updateTask,
-    required TResult Function(List<FirefileTask> taskList) updateTaskList,
+    required TResult Function(FirefileTask task, int eventId) updateTask,
+    required TResult Function(List<FirefileTask> taskList, int eventId)
+        updateTaskList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(FirefileTask task)? updateTask,
-    TResult Function(List<FirefileTask> taskList)? updateTaskList,
+    TResult Function(FirefileTask task, int eventId)? updateTask,
+    TResult Function(List<FirefileTask> taskList, int eventId)? updateTaskList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FirefileTask task)? updateTask,
-    TResult Function(List<FirefileTask> taskList)? updateTaskList,
+    TResult Function(FirefileTask task, int eventId)? updateTask,
+    TResult Function(List<FirefileTask> taskList, int eventId)? updateTaskList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +56,10 @@ mixin _$FirefileEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $FirefileEventCopyWith<FirefileEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -61,6 +67,7 @@ abstract class $FirefileEventCopyWith<$Res> {
   factory $FirefileEventCopyWith(
           FirefileEvent value, $Res Function(FirefileEvent) then) =
       _$FirefileEventCopyWithImpl<$Res>;
+  $Res call({int eventId});
 }
 
 /// @nodoc
@@ -71,14 +78,28 @@ class _$FirefileEventCopyWithImpl<$Res>
   final FirefileEvent _value;
   // ignore: unused_field
   final $Res Function(FirefileEvent) _then;
+
+  @override
+  $Res call({
+    Object? eventId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      eventId: eventId == freezed
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$$_UpdateTaskCopyWith<$Res> {
+abstract class _$$_UpdateTaskCopyWith<$Res>
+    implements $FirefileEventCopyWith<$Res> {
   factory _$$_UpdateTaskCopyWith(
           _$_UpdateTask value, $Res Function(_$_UpdateTask) then) =
       __$$_UpdateTaskCopyWithImpl<$Res>;
-  $Res call({FirefileTask task});
+  @override
+  $Res call({FirefileTask task, int eventId});
 }
 
 /// @nodoc
@@ -95,12 +116,17 @@ class __$$_UpdateTaskCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
+    Object? eventId = freezed,
   }) {
     return _then(_$_UpdateTask(
       task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as FirefileTask,
+      eventId: eventId == freezed
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -108,14 +134,16 @@ class __$$_UpdateTaskCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UpdateTask implements _UpdateTask {
-  const _$_UpdateTask(this.task);
+  const _$_UpdateTask(this.task, {required this.eventId});
 
   @override
   final FirefileTask task;
+  @override
+  final int eventId;
 
   @override
   String toString() {
-    return 'FirefileEvent.updateTask(task: $task)';
+    return 'FirefileEvent.updateTask(task: $task, eventId: $eventId)';
   }
 
   @override
@@ -123,12 +151,15 @@ class _$_UpdateTask implements _UpdateTask {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpdateTask &&
-            const DeepCollectionEquality().equals(other.task, task));
+            const DeepCollectionEquality().equals(other.task, task) &&
+            const DeepCollectionEquality().equals(other.eventId, eventId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(task));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(task),
+      const DeepCollectionEquality().hash(eventId));
 
   @JsonKey(ignore: true)
   @override
@@ -138,30 +169,31 @@ class _$_UpdateTask implements _UpdateTask {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FirefileTask task) updateTask,
-    required TResult Function(List<FirefileTask> taskList) updateTaskList,
+    required TResult Function(FirefileTask task, int eventId) updateTask,
+    required TResult Function(List<FirefileTask> taskList, int eventId)
+        updateTaskList,
   }) {
-    return updateTask(task);
+    return updateTask(task, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(FirefileTask task)? updateTask,
-    TResult Function(List<FirefileTask> taskList)? updateTaskList,
+    TResult Function(FirefileTask task, int eventId)? updateTask,
+    TResult Function(List<FirefileTask> taskList, int eventId)? updateTaskList,
   }) {
-    return updateTask?.call(task);
+    return updateTask?.call(task, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FirefileTask task)? updateTask,
-    TResult Function(List<FirefileTask> taskList)? updateTaskList,
+    TResult Function(FirefileTask task, int eventId)? updateTask,
+    TResult Function(List<FirefileTask> taskList, int eventId)? updateTaskList,
     required TResult orElse(),
   }) {
     if (updateTask != null) {
-      return updateTask(task);
+      return updateTask(task, eventId);
     }
     return orElse();
   }
@@ -199,20 +231,26 @@ class _$_UpdateTask implements _UpdateTask {
 }
 
 abstract class _UpdateTask implements FirefileEvent {
-  const factory _UpdateTask(final FirefileTask task) = _$_UpdateTask;
+  const factory _UpdateTask(final FirefileTask task,
+      {required final int eventId}) = _$_UpdateTask;
 
   FirefileTask get task => throw _privateConstructorUsedError;
+  @override
+  int get eventId => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
   _$$_UpdateTaskCopyWith<_$_UpdateTask> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UpdateTaskListCopyWith<$Res> {
+abstract class _$$_UpdateTaskListCopyWith<$Res>
+    implements $FirefileEventCopyWith<$Res> {
   factory _$$_UpdateTaskListCopyWith(
           _$_UpdateTaskList value, $Res Function(_$_UpdateTaskList) then) =
       __$$_UpdateTaskListCopyWithImpl<$Res>;
-  $Res call({List<FirefileTask> taskList});
+  @override
+  $Res call({List<FirefileTask> taskList, int eventId});
 }
 
 /// @nodoc
@@ -229,12 +267,17 @@ class __$$_UpdateTaskListCopyWithImpl<$Res>
   @override
   $Res call({
     Object? taskList = freezed,
+    Object? eventId = freezed,
   }) {
     return _then(_$_UpdateTaskList(
       taskList == freezed
           ? _value._taskList
           : taskList // ignore: cast_nullable_to_non_nullable
               as List<FirefileTask>,
+      eventId: eventId == freezed
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -242,7 +285,8 @@ class __$$_UpdateTaskListCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UpdateTaskList implements _UpdateTaskList {
-  const _$_UpdateTaskList(final List<FirefileTask> taskList)
+  const _$_UpdateTaskList(final List<FirefileTask> taskList,
+      {required this.eventId})
       : _taskList = taskList;
 
   final List<FirefileTask> _taskList;
@@ -253,8 +297,11 @@ class _$_UpdateTaskList implements _UpdateTaskList {
   }
 
   @override
+  final int eventId;
+
+  @override
   String toString() {
-    return 'FirefileEvent.updateTaskList(taskList: $taskList)';
+    return 'FirefileEvent.updateTaskList(taskList: $taskList, eventId: $eventId)';
   }
 
   @override
@@ -262,12 +309,15 @@ class _$_UpdateTaskList implements _UpdateTaskList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpdateTaskList &&
-            const DeepCollectionEquality().equals(other._taskList, _taskList));
+            const DeepCollectionEquality().equals(other._taskList, _taskList) &&
+            const DeepCollectionEquality().equals(other.eventId, eventId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_taskList));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_taskList),
+      const DeepCollectionEquality().hash(eventId));
 
   @JsonKey(ignore: true)
   @override
@@ -277,30 +327,31 @@ class _$_UpdateTaskList implements _UpdateTaskList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FirefileTask task) updateTask,
-    required TResult Function(List<FirefileTask> taskList) updateTaskList,
+    required TResult Function(FirefileTask task, int eventId) updateTask,
+    required TResult Function(List<FirefileTask> taskList, int eventId)
+        updateTaskList,
   }) {
-    return updateTaskList(taskList);
+    return updateTaskList(taskList, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(FirefileTask task)? updateTask,
-    TResult Function(List<FirefileTask> taskList)? updateTaskList,
+    TResult Function(FirefileTask task, int eventId)? updateTask,
+    TResult Function(List<FirefileTask> taskList, int eventId)? updateTaskList,
   }) {
-    return updateTaskList?.call(taskList);
+    return updateTaskList?.call(taskList, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FirefileTask task)? updateTask,
-    TResult Function(List<FirefileTask> taskList)? updateTaskList,
+    TResult Function(FirefileTask task, int eventId)? updateTask,
+    TResult Function(List<FirefileTask> taskList, int eventId)? updateTaskList,
     required TResult orElse(),
   }) {
     if (updateTaskList != null) {
-      return updateTaskList(taskList);
+      return updateTaskList(taskList, eventId);
     }
     return orElse();
   }
@@ -338,10 +389,13 @@ class _$_UpdateTaskList implements _UpdateTaskList {
 }
 
 abstract class _UpdateTaskList implements FirefileEvent {
-  const factory _UpdateTaskList(final List<FirefileTask> taskList) =
-      _$_UpdateTaskList;
+  const factory _UpdateTaskList(final List<FirefileTask> taskList,
+      {required final int eventId}) = _$_UpdateTaskList;
 
   List<FirefileTask> get taskList => throw _privateConstructorUsedError;
+  @override
+  int get eventId => throw _privateConstructorUsedError;
+  @override
   @JsonKey(ignore: true)
   _$$_UpdateTaskListCopyWith<_$_UpdateTaskList> get copyWith =>
       throw _privateConstructorUsedError;
@@ -352,22 +406,26 @@ mixin _$FirefileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<FirefileTask> tasks) taskListUpdateSuccess,
-    required TResult Function(FirefileTask task, int? hash) taskUpdateSuccess,
+    required TResult Function(List<FirefileTask> tasks, int? eventId)
+        taskListUpdateSuccess,
+    required TResult Function(FirefileTask task, int? eventId)
+        taskUpdateSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -453,8 +511,10 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<FirefileTask> tasks) taskListUpdateSuccess,
-    required TResult Function(FirefileTask task, int? hash) taskUpdateSuccess,
+    required TResult Function(List<FirefileTask> tasks, int? eventId)
+        taskListUpdateSuccess,
+    required TResult Function(FirefileTask task, int? eventId)
+        taskUpdateSuccess,
   }) {
     return initial();
   }
@@ -463,8 +523,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
   }) {
     return initial?.call();
   }
@@ -473,8 +534,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -528,7 +590,7 @@ abstract class _$$_TaskListUpdateSuccessCopyWith<$Res> {
   factory _$$_TaskListUpdateSuccessCopyWith(_$_TaskListUpdateSuccess value,
           $Res Function(_$_TaskListUpdateSuccess) then) =
       __$$_TaskListUpdateSuccessCopyWithImpl<$Res>;
-  $Res call({List<FirefileTask> tasks});
+  $Res call({List<FirefileTask> tasks, int? eventId});
 }
 
 /// @nodoc
@@ -546,12 +608,17 @@ class __$$_TaskListUpdateSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tasks = freezed,
+    Object? eventId = freezed,
   }) {
     return _then(_$_TaskListUpdateSuccess(
       tasks == freezed
           ? _value._tasks
           : tasks // ignore: cast_nullable_to_non_nullable
               as List<FirefileTask>,
+      eventId == freezed
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -559,7 +626,7 @@ class __$$_TaskListUpdateSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TaskListUpdateSuccess implements _TaskListUpdateSuccess {
-  const _$_TaskListUpdateSuccess(final List<FirefileTask> tasks)
+  const _$_TaskListUpdateSuccess(final List<FirefileTask> tasks, [this.eventId])
       : _tasks = tasks;
 
   final List<FirefileTask> _tasks;
@@ -570,8 +637,11 @@ class _$_TaskListUpdateSuccess implements _TaskListUpdateSuccess {
   }
 
   @override
+  final int? eventId;
+
+  @override
   String toString() {
-    return 'FirefileState.taskListUpdateSuccess(tasks: $tasks)';
+    return 'FirefileState.taskListUpdateSuccess(tasks: $tasks, eventId: $eventId)';
   }
 
   @override
@@ -579,12 +649,15 @@ class _$_TaskListUpdateSuccess implements _TaskListUpdateSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TaskListUpdateSuccess &&
-            const DeepCollectionEquality().equals(other._tasks, _tasks));
+            const DeepCollectionEquality().equals(other._tasks, _tasks) &&
+            const DeepCollectionEquality().equals(other.eventId, eventId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_tasks));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_tasks),
+      const DeepCollectionEquality().hash(eventId));
 
   @JsonKey(ignore: true)
   @override
@@ -596,32 +669,36 @@ class _$_TaskListUpdateSuccess implements _TaskListUpdateSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<FirefileTask> tasks) taskListUpdateSuccess,
-    required TResult Function(FirefileTask task, int? hash) taskUpdateSuccess,
+    required TResult Function(List<FirefileTask> tasks, int? eventId)
+        taskListUpdateSuccess,
+    required TResult Function(FirefileTask task, int? eventId)
+        taskUpdateSuccess,
   }) {
-    return taskListUpdateSuccess(tasks);
+    return taskListUpdateSuccess(tasks, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
   }) {
-    return taskListUpdateSuccess?.call(tasks);
+    return taskListUpdateSuccess?.call(tasks, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
     required TResult orElse(),
   }) {
     if (taskListUpdateSuccess != null) {
-      return taskListUpdateSuccess(tasks);
+      return taskListUpdateSuccess(tasks, eventId);
     }
     return orElse();
   }
@@ -663,10 +740,11 @@ class _$_TaskListUpdateSuccess implements _TaskListUpdateSuccess {
 }
 
 abstract class _TaskListUpdateSuccess implements FirefileState {
-  const factory _TaskListUpdateSuccess(final List<FirefileTask> tasks) =
-      _$_TaskListUpdateSuccess;
+  const factory _TaskListUpdateSuccess(final List<FirefileTask> tasks,
+      [final int? eventId]) = _$_TaskListUpdateSuccess;
 
   List<FirefileTask> get tasks => throw _privateConstructorUsedError;
+  int? get eventId => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_TaskListUpdateSuccessCopyWith<_$_TaskListUpdateSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -677,7 +755,7 @@ abstract class _$$_TaskUpdateSuccessCopyWith<$Res> {
   factory _$$_TaskUpdateSuccessCopyWith(_$_TaskUpdateSuccess value,
           $Res Function(_$_TaskUpdateSuccess) then) =
       __$$_TaskUpdateSuccessCopyWithImpl<$Res>;
-  $Res call({FirefileTask task, int? hash});
+  $Res call({FirefileTask task, int? eventId});
 }
 
 /// @nodoc
@@ -694,16 +772,16 @@ class __$$_TaskUpdateSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
-    Object? hash = freezed,
+    Object? eventId = freezed,
   }) {
     return _then(_$_TaskUpdateSuccess(
       task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as FirefileTask,
-      hash == freezed
-          ? _value.hash
-          : hash // ignore: cast_nullable_to_non_nullable
+      eventId == freezed
+          ? _value.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -712,16 +790,16 @@ class __$$_TaskUpdateSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TaskUpdateSuccess implements _TaskUpdateSuccess {
-  const _$_TaskUpdateSuccess(this.task, [this.hash]);
+  const _$_TaskUpdateSuccess(this.task, [this.eventId]);
 
   @override
   final FirefileTask task;
   @override
-  final int? hash;
+  final int? eventId;
 
   @override
   String toString() {
-    return 'FirefileState.taskUpdateSuccess(task: $task, hash: $hash)';
+    return 'FirefileState.taskUpdateSuccess(task: $task, eventId: $eventId)';
   }
 
   @override
@@ -730,14 +808,14 @@ class _$_TaskUpdateSuccess implements _TaskUpdateSuccess {
         (other.runtimeType == runtimeType &&
             other is _$_TaskUpdateSuccess &&
             const DeepCollectionEquality().equals(other.task, task) &&
-            const DeepCollectionEquality().equals(other.hash, hash));
+            const DeepCollectionEquality().equals(other.eventId, eventId));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(task),
-      const DeepCollectionEquality().hash(hash));
+      const DeepCollectionEquality().hash(eventId));
 
   @JsonKey(ignore: true)
   @override
@@ -749,32 +827,36 @@ class _$_TaskUpdateSuccess implements _TaskUpdateSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<FirefileTask> tasks) taskListUpdateSuccess,
-    required TResult Function(FirefileTask task, int? hash) taskUpdateSuccess,
+    required TResult Function(List<FirefileTask> tasks, int? eventId)
+        taskListUpdateSuccess,
+    required TResult Function(FirefileTask task, int? eventId)
+        taskUpdateSuccess,
   }) {
-    return taskUpdateSuccess(task, hash);
+    return taskUpdateSuccess(task, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
   }) {
-    return taskUpdateSuccess?.call(task, hash);
+    return taskUpdateSuccess?.call(task, eventId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<FirefileTask> tasks)? taskListUpdateSuccess,
-    TResult Function(FirefileTask task, int? hash)? taskUpdateSuccess,
+    TResult Function(List<FirefileTask> tasks, int? eventId)?
+        taskListUpdateSuccess,
+    TResult Function(FirefileTask task, int? eventId)? taskUpdateSuccess,
     required TResult orElse(),
   }) {
     if (taskUpdateSuccess != null) {
-      return taskUpdateSuccess(task, hash);
+      return taskUpdateSuccess(task, eventId);
     }
     return orElse();
   }
@@ -816,11 +898,11 @@ class _$_TaskUpdateSuccess implements _TaskUpdateSuccess {
 }
 
 abstract class _TaskUpdateSuccess implements FirefileState {
-  const factory _TaskUpdateSuccess(final FirefileTask task, [final int? hash]) =
-      _$_TaskUpdateSuccess;
+  const factory _TaskUpdateSuccess(final FirefileTask task,
+      [final int? eventId]) = _$_TaskUpdateSuccess;
 
   FirefileTask get task => throw _privateConstructorUsedError;
-  int? get hash => throw _privateConstructorUsedError;
+  int? get eventId => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_TaskUpdateSuccessCopyWith<_$_TaskUpdateSuccess> get copyWith =>
       throw _privateConstructorUsedError;
