@@ -1,3 +1,7 @@
+## 0.5.1
+
+- FIX: Providing `FirefileTask.visibleName` using `FilefileController.uploadFile`.
+
 ## 0.5.0
 
 - FEATURE: You can now provide an alternate file name using `FirefileTask.visibleName`.

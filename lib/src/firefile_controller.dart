@@ -36,6 +36,7 @@ class FirefileController {
     File? file,
     Uint8List? data,
     String? childPath,
+    String? visibleName,
     SettableMetadata? metadata,
     String? refPath,
   }) {
@@ -57,6 +58,7 @@ class FirefileController {
 
     final task = FirefileTask.fromUploadTask(
       uploadTask: uploadTask,
+      visibleName: visibleName,
       onUpdate: (task) => _bloc.add(FirefileEvent.updateTask(task, eventId: ++eventId)),
     );
 
