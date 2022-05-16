@@ -1,6 +1,10 @@
+## 0.5.0
+
+- FEATURE: You can now provide an alternate file name using `FirefileTask.visibleName`.
+
 ## 0.4.0
 
-- FEATURE: You can now get the full download url of the file after the task is successfully completed using `FirefileTask.downloadUrl`
+- FEATURE: You can now get the full download url of the file after the task is successfully completed using `FirefileTask.downloadUrl`.
 
 ## 0.3.2
 
