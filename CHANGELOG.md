@@ -1,3 +1,7 @@
+## 0.6.1
+
+- BUGFIX: Use of uninitialized `uploadTask`. 
+
 ## 0.6.0
 
 - FEATURE: You can now provide `initialTasks` to `FirefileController`.

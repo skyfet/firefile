@@ -14,7 +14,13 @@ part of 'firefile.dart';
 class FirefileController {
   FirefileController({this.removeOnCancel = false, List<FirefileTask>? initialTasks})
       : tasks = initialTasks ?? [],
-        _bloc = FirefileBloc();
+        _bloc = FirefileBloc() {
+    if (initialTasks?.isNotEmpty ?? false) {
+      _bloc.add(
+        FirefileEvent.updateTaskList(tasks, eventId: ++eventId),
+      );
+    }
+  }
 
   /// This flag affects whether the task will be removed from the task list
   /// if the task is canceled by this [cancelTask] method.
@@ -62,8 +68,12 @@ class FirefileController {
       onUpdate: (task) => _bloc.add(FirefileEvent.updateTask(task, eventId: ++eventId)),
     );
 
-    tasks.add(task);
-
+    final existingTaskIndex = tasks.indexWhere((t) => task.fullPath == t.fullPath);
+    if (existingTaskIndex > -1) {
+      tasks[existingTaskIndex] = task;
+    } else {
+      tasks.add(task);
+    }
     _bloc.add(FirefileEvent.updateTaskList(tasks, eventId: ++eventId));
 
     return uploadTask;
@@ -73,11 +83,13 @@ class FirefileController {
   /// [FirefileController.removeOnCancel] will be ignored for this task.
   /// Else affects by [FirefileController.removeOnCancel].
   void cancelTask(FirefileTask task, {bool? removeOnCancel}) async {
-    task.uploadTask.cancel().ignore();
+    if (task.state == TaskState.running || task.state == TaskState.paused) {
+      task.uploadTask.cancel().ignore();
+    } else {
+      task.state = TaskState.canceled;
+    }
     if (removeOnCancel ?? this.removeOnCancel) {
-      tasks.removeWhere(
-        (t) => t.uploadTask.snapshot.ref.fullPath == task.uploadTask.snapshot.ref.fullPath,
-      );
+      tasks.removeWhere((t) => t.fullPath == task.fullPath);
     }
 
     _bloc.add(FirefileEvent.updateTaskList(tasks, eventId: ++eventId));

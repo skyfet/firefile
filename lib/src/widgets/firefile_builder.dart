@@ -78,12 +78,12 @@ class FirefileBuilder extends StatelessWidget {
 
               return BlocBuilder<FirefileBloc, FirefileState>(
                 buildWhen: (_, state) => state.maybeMap(
-                  taskUpdateSuccess: (state) => state.task.uploadTask == currentTask.uploadTask,
+                  taskUpdateSuccess: (state) => state.task.fullPath == currentTask.fullPath,
                   orElse: () => false,
                 ),
                 builder: (context, state) => state.maybeMap(
                   taskUpdateSuccess: (state) => tileBuilder(
-                    state.task.uploadTask == currentTask.uploadTask ? state.task : currentTask,
+                    state.task.fullPath == currentTask.fullPath ? state.task : currentTask,
                   ),
                   orElse: () => const SizedBox(),
                 ),
