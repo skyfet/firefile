@@ -1,6 +1,7 @@
 ## 0.6.1
 
 - BUGFIX: Use of uninitialized `uploadTask`. 
+- LOGIC: Now when you load the same file, the task will restart.
 
 ## 0.6.0
 
