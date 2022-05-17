@@ -1,3 +1,8 @@
+## 0.6.0
+
+- FEATURE: You can now provide `initialTasks` to `FirefileController`.
+- FEATURE: You can now create a completed `FirefileTask` manually using the `FirefileTask.success` constructor.
+
 ## 0.5.1
 
 - FIX: Providing `FirefileTask.visibleName` using `FilefileController.uploadFile`.

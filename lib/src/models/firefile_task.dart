@@ -1,8 +1,16 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firefile/firefile.dart';
-import 'package:firefile/src/extensions/task_snapshot_extension.dart';
+part of '../firefile.dart';
 
 class FirefileTask {
+  /// Create completed [FirefileTask].
+  ///
+  /// #### DO NOT ACCESS THIS [uploadTask] FIELD IF YOU ARE USING THIS CONSTRUCTOR.
+  FirefileTask.success({
+    required this.fileName,
+    required this.downloadUrl,
+    this.visibleName,
+  })  : progress = 1,
+        state = TaskState.success;
+
   FirefileTask.fromUploadTask({
     required this.uploadTask,
     required void Function(FirefileTask task) onUpdate,
@@ -31,7 +39,10 @@ class FirefileTask {
   }
 
   /// Firebase storage upload task.
-  final UploadTask uploadTask;
+  ///
+  /// #### DO NOT ACCESS THIS [uploadTask] WHEN YOU CREATE [FirefileTask]
+  /// #### USING THIS [FirefileTask.success] CONSTRUCTOR.
+  late final UploadTask uploadTask;
 
   /// File name in Firebase storage.
   final String fileName;

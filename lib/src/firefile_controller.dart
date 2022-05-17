@@ -12,8 +12,8 @@ part of 'firefile.dart';
 /// - #### Instead, use this [cancelTask] method.
 /// - #### For other cases, you can refer to the available `UploadTask` methods.
 class FirefileController {
-  FirefileController({this.removeOnCancel = false})
-      : tasks = [],
+  FirefileController({this.removeOnCancel = false, List<FirefileTask>? initialTasks})
+      : tasks = initialTasks ?? [],
         _bloc = FirefileBloc();
 
   /// This flag affects whether the task will be removed from the task list

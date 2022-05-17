@@ -3,14 +3,16 @@ import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firefile/src/bloc/firefile_bloc.dart';
-import 'package:firefile/src/models/firefile_task.dart';
 import 'package:firefile/src/widgets/firefile_builder.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'extensions/task_snapshot_extension.dart';
+
 part 'firefile_controller.dart';
+part 'models/firefile_task.dart';
 
 class Firefile extends StatelessWidget {
   /// Use [FirefileController] for file upload or other operations with files.

@@ -1,6 +1,5 @@
 import 'package:firefile/src/bloc/firefile_bloc.dart';
 import 'package:firefile/src/firefile.dart';
-import 'package:firefile/src/models/firefile_task.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
