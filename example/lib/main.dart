@@ -46,7 +46,14 @@ class _ExampleState extends State<Example> {
 
   @override
   void initState() {
-    controller = FirefileController();
+    controller = FirefileController(
+      initialTasks: [
+        FirefileTask.success(
+          fileName: 'Custom file name',
+          downloadUrl: '/some-download-url',
+        ),
+      ],
+    );
 
     super.initState();
   }

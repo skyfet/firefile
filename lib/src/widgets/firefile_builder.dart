@@ -85,7 +85,7 @@ class FirefileBuilder extends StatelessWidget {
                   taskUpdateSuccess: (state) => tileBuilder(
                     state.task.fullPath == currentTask.fullPath ? state.task : currentTask,
                   ),
-                  orElse: () => const SizedBox(),
+                  orElse: () => tileBuilder(currentTask),
                 ),
               );
             },
