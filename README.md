@@ -1,7 +1,3 @@
-<!-- ## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
- -->
 ## Firefile
 This package makes it easy to control the display of the Firestore file download progress.
 

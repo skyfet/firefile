@@ -1,6 +1,11 @@
+## 0.6.3
+
+- UPDATE: Allow firebase_storage >=10.2.15 <12.0.0
+
 ## 0.6.2
 
 - BUGFIX: In some cases, `initialTasks` were not displayed.
+
 ## 0.6.1
 
 - BUGFIX: Use of uninitialized `uploadTask`. 

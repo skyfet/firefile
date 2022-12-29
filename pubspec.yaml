@@ -1,6 +1,6 @@
 name: firefile
 description: The Firefile package makes it easy to control the display of the Firestore file download progress.
-version: 0.6.2
+version: 0.6.3
 homepage: https://github.com/skyfet/firefile 
 
 environment:
@@ -10,19 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_storage: ^10.2.15
-  bloc: ^8.0.3
-  flutter_bloc: ^8.0.1
-  freezed: ^2.0.3
-  freezed_annotation: ^2.0.3
+  firebase_storage: ">=10.2.15 <12.0.0"
+  bloc: ^8.0.0
+  flutter_bloc: ^8.0.0
+  freezed_annotation: ^2.0.0
 
 dev_dependencies:
+  freezed: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
-  build_runner: ^2.1.10
+  build_runner: ^2.1.7
 
-# This package supports all platforms listed below.
 platforms:
   android:
   ios:
